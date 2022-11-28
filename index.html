@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sancho Pahutan Bundy Clock</title>
+		<style>
+			.container {
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="time-in-container">
+				<h1>Time In</h1>
+				<span class="nald-in" data-name="nald-in"></span>
+				<span class="kat-in" data-name="kat-in"></span>
+				<span class="marie-in" data-name="marie-in"></span>
+				<span class="dean-in" data-name="dean-in"></span>
+			</div>
+			<div class="time-out-container">
+				<h1>Time Out</h1>
+				<span class="nald-out" data-name="nald-out"></span>
+				<span class="kat-out" data-name="kat-out"></span>
+				<span class="marie-out" data-name="marie-out"></span>
+				<span class="dean-out" data-name="dean-out"></span>
+			</div>
+
+			<div id="qrcode"></div>
+		</div>
+
+		<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+		<script type="text/javascript">
+			new QRCode(
+				document.getElementById("qrcode"),
+				"http://127.0.0.1:5500/?name='nald'"
+			)
+		</script>
+
+		<script>
+			let timeIn = false
+			let timeOut = false
+
+			let getURL = window.location.search
+			const urlParams = new URLSearchParams(getURL)
+
+			const name = urlParams.get("name")
+			console.log(name)
+
+			// get all data from qr code
+
+			// check if time in = false
+			// check the name
+			if (!timeIn) {
+				timeIn = true
+				let getDate = new Date()
+				let nameSpan = document.querySelector(`[data-name="nald-in"]`)
+				nameSpan.innerHTML =
+					"Ronald " +
+					getDate.toLocaleTimeString() +
+					" " +
+					getDate.toLocaleDateString()
+			} else if (timeIn) {
+				timeIn = false
+				timeOut = true
+				let getDate = new Date()
+				let nameSpan = document.querySelector(`[data-name="nald-out"]`)
+				nameSpan.innerHTML =
+					"Ronald " +
+					getDate.toLocaleTimeString() +
+					" " +
+					getDate.toLocaleDateString()
+			}
+		</script>
+	</body>
+</html>
